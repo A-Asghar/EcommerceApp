@@ -254,9 +254,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       widget.productName,
                                       widget.productPrice,
                                       widget.productImageUrl);
-                                  context
-                                      .read<CartProvider>()
-                                      .calculateCartTotal(widget.productPrice);
                                 },
                                 buttonText: 'Add To Cart'),
                             Text(

@@ -3,7 +3,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Cart.dart';
 import 'HomeScreen.dart';
-import 'Settings.dart';
+import 'Profile.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);

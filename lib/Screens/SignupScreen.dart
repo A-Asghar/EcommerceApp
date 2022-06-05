@@ -1,5 +1,5 @@
 import 'package:ecommerceapp/Screens/LoginScreen.dart';
-import 'package:ecommerceapp/Services/AddUser.dart';
+import 'package:ecommerceapp/Services/UserManagement/AddUser.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:ecommerceapp/Widgets/SigninErrorDialog.dart';
 import 'package:ecommerceapp/Widgets/UserInput.dart';
@@ -16,6 +16,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +64,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               userInput('Email', TextInputType.emailAddress, _email, false, 50),
               userInput(
-                  'Password', TextInputType.visiblePassword, _email, true, 20),
+                  'Password', TextInputType.visiblePassword, _password, true, 20),
               userInput('Confirm Password', TextInputType.visiblePassword,
-                  _password, true, 20),
+                  _confirmPassword, true, 20),
               const Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 20),
                 child:

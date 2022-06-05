@@ -8,12 +8,14 @@ class CartProvider extends ChangeNotifier {
   double get cartTotal => _cartTotal;
 
   addToCart(name, price, imageUrl) {
+    _cartTotal += price;
     _cartList.add(CartProducts(name: name, price: price, imageUrl: imageUrl));
     notifyListeners();
   }
 
-  calculateCartTotal(price) {
-    _cartTotal += price;
+  removeFromCart(index) {
+    _cartTotal -= _cartList[index].price;
+    _cartList.removeAt(index);
     notifyListeners();
   }
 }

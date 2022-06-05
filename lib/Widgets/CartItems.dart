@@ -1,6 +1,8 @@
+import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/NavigationBar.dart';
 import '../Services/Providers/CartProvider.dart';
 
 class CartItems extends StatefulWidget {
@@ -14,10 +16,31 @@ class _CartItemsState extends State<CartItems> {
   @override
   Widget build(BuildContext context) {
     return context.watch<CartProvider>().cartList.isEmpty
-        ? const Center(
-            child: Text(
-              'There are no items in your cart !',
-              style: TextStyle(fontSize: 25),
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                const Text(
+                  'There are no items in your cart !',
+                  style: TextStyle(fontSize: 25),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                  ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => NavBar(),
+                      ));
+                    },
+                    child: Text('Keep Shopping',style: TextStyle(fontSize: 22,color: Colors.white),))
+                // MultiPurposeButton(onPressed: (){
+                //   Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => NavBar(),
+                //   ));
+                // }, buttonText: 'Continue Shopping')
+              ],
             ),
           )
         : ListView.builder(
@@ -37,12 +60,14 @@ class _CartItemsState extends State<CartItems> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width*0.2,
+                            width: MediaQuery.of(context).size.width * 0.2,
                             child: Image(
-                                image: NetworkImage(context
-                                    .watch<CartProvider>()
-                                    .cartList[index]
-                                    .imageUrl),fit: BoxFit.fill,),
+                              image: NetworkImage(context
+                                  .watch<CartProvider>()
+                                  .cartList[index]
+                                  .imageUrl),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                           Expanded(
                               child: ListTile(
@@ -57,7 +82,17 @@ class _CartItemsState extends State<CartItems> {
                               '\$${context.watch<CartProvider>().cartList[index].price.toString()}',
                               style: const TextStyle(fontSize: 20),
                             ),
-                          ))
+                          )),
+                          IconButton(
+                              onPressed: () {
+                                context
+                                    .read<CartProvider>()
+                                    .removeFromCart(index);
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ))
                         ],
                       ),
                     ),

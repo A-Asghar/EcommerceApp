@@ -7,7 +7,7 @@ import '../Widgets/SigninErrorDialog.dart';
 import 'Cart.dart';
 import 'HomeScreen.dart';
 import 'NavigationBar.dart';
-import 'Settings.dart';
+import 'Profile.dart';
 import 'SignupScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -82,19 +82,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               MultiPurposeButton(
                   onPressed: () {
-                    // FirebaseAuth.instance
-                    //     .signInWithEmailAndPassword(
-                    //         email: _email.text, password: _password.text)
-                    //     .then((signedInUser) {
-                    //   Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => NavBar(),
-                    //   ));
-                    // }).catchError((e) {
-                    //   signinErrorDialog(e.code, context);
-                    // });
-                    Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => NavBar(),
-                          ));
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _email.text, password: _password.text)
+                        .then((signedInUser) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => NavBar(),
+                      ));
+                    }).catchError((e) {
+                      signinErrorDialog(e.code, context);
+                    });
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //         builder: (context) => NavBar(),
+                    //       ));
                   },
                   buttonText: 'Login')
             ],

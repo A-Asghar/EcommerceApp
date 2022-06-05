@@ -34,37 +34,30 @@ class _CartState extends State<Cart> {
       ),
       body: Center(
           child: Column(
-            children: [
-              Expanded(child: CartItems()),
-              Container(
-                // decoration: BoxDecoration(
-                //     color: Colors.transparent,
-                //     // border: Border.all(),
-                //     borderRadius: BorderRadius.only(
-                //         topLeft: Radius.circular(20),
-                //         topRight: Radius.circular(20))),
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width*0.99,
-                child: Row(
-                  children: [
-                    MultiPurposeButton(onPressed: () {}, buttonText: 'Checkout'),
-                    Expanded(
-                        child: ListTile(
-                          title: const Text(
-                            'Total',
-                            style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            '\$${context.watch<CartProvider>().cartTotal.toStringAsFixed(2)}',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ))
-                  ],
-                ),
-              )
-            ],
-          )),
+        children: [
+          Expanded(child: CartItems()),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 0.99,
+            child: Row(
+              children: [
+                MultiPurposeButton(onPressed: () {}, buttonText: 'Checkout'),
+                Expanded(
+                    child: ListTile(
+                  title: const Text(
+                    'Total',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    '\$${context.watch<CartProvider>().cartTotal.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ))
+              ],
+            ),
+          )
+        ],
+      )),
     ));
   }
 }

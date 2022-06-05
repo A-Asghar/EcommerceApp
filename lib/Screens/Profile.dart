@@ -1,5 +1,9 @@
 import 'package:ecommerceapp/Widgets/SettingsScreenContainer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'LoginScreen.dart';
+import 'MyAccountScreen.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -34,10 +38,14 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.width * 0.3,
-                  child: FlutterLogo(),
+                  child: const FlutterLogo(),
                 ),
                 SettingsScreenContainer(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MyAccount(),
+                      ));
+                    },
                     text: 'My Account',
                     icon: const Icon(
                       Icons.person_outline_outlined,
@@ -48,17 +56,28 @@ class _SettingsState extends State<Settings> {
                     text: 'Settings',
                     icon: const Icon(Icons.settings, color: Colors.blueGrey)),
                 SettingsScreenContainer(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     text: 'Help Center',
-                    icon: const Icon(Icons.help_outline, color: Colors.blueGrey)),
+                    icon:
+                        const Icon(Icons.help_outline, color: Colors.blueGrey)),
                 SettingsScreenContainer(
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ));
+                    },
                     text: 'Log Out',
                     icon: const Icon(Icons.logout, color: Colors.blueGrey)),
                 SettingsScreenContainer(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     text: 'Are you a seller?',
-                    icon: const Icon(Icons.add_circle_rounded, color: Colors.blueGrey)),
+                    icon: const Icon(Icons.add_circle_rounded,
+                        color: Colors.blueGrey)),
               ],
             ),
           ),
