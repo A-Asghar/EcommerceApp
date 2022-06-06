@@ -2,6 +2,7 @@ import 'package:ecommerceapp/Widgets/SettingsScreenContainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'AddProductScreen.dart';
 import 'LoginScreen.dart';
 import 'MyAccountScreen.dart';
 
@@ -73,7 +74,9 @@ class _SettingsState extends State<Settings> {
                     icon: const Icon(Icons.logout, color: Colors.blueGrey)),
                 SettingsScreenContainer(
                     onPressed: () {
-
+                      Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddProductScreen(),
+                            ));
                     },
                     text: 'Are you a seller?',
                     icon: const Icon(Icons.add_circle_rounded,

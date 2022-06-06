@@ -233,7 +233,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             views: [
                               ProductDescription(
-                                desc: desc,
+                                desc: widget.productDescription ,
                               ),
                               ProductReviews(
                                 Rating: widget.productRating,

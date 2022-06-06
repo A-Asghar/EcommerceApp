@@ -1,8 +1,6 @@
 import 'package:ecommerceapp/Services/Providers/CartProvider.dart';
-import 'package:ecommerceapp/Widgets/CategoriesList.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:flutter/material.dart';
-import 'package:horizontal_card_pager/horizontal_card_pager.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/CartItems.dart';

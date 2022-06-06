@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:horizontal_card_pager/horizontal_card_pager.dart';
-import 'package:horizontal_card_pager/card_item.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({Key? key}) : super(key: key);
