@@ -1,10 +1,9 @@
 import 'package:ecommerceapp/Screens/MainScreen.dart';
-import 'package:ecommerceapp/Screens/ProductDetailsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerceapp/Services/Providers/CartProvider.dart';
-
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,14 +16,16 @@ Future main() async {
       storageBucket: "assignment4-e9d53.appspot.com",
     ),
   );
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => CartProvider()),
-
-    ],
-    child: const MyApp(),
-  ),
-      );
+  Stripe.publishableKey =
+      'pk_test_51L83sVBtEI7KvPdoXkpY4srv7Ilt4yvqW4my03Tdr8FXFIC6O3wnus8apieT1OEzriDKFvolePrHf0ILf5ZT9cYT00HpLjIDHb';
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

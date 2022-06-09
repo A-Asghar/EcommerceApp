@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:ecommerceapp/Widgets/UserInput.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -27,7 +26,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
   UploadTask? task;
-  List<String> ImgUrls1 = [];
+  List<String> ImageList = [];
   String PhotoUrl = '';
   bool isLoaded = false;
   bool imagesUploading = false;
@@ -65,18 +64,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
               AddImages(
                 text: 'Add Product Gallery Images',
                 onPressed: () {
-                  ImgUrls1.clear();
+                  ImageList.clear();
                   selectImages();
                 },
               ),
               imagesUploading
-                  ? CircularProgressIndicator(
+                  ? const CircularProgressIndicator(
                       color: Colors.blue,
                     )
                   : MultiPurposeButton(
                       onPressed: () {
-                        //productName, productCategory, productPrice, productDescription,
-                        //       productStoreName, productImageUrl, productImageList
                         AddProduct().addNewProduct(
                             _productName.text,
                             _productCategory.text,
@@ -84,7 +81,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             _productDescription.text,
                             _productStoreName.text,
                             PhotoUrl,
-                            ImgUrls1);
+                            ImageList);
                       },
                       buttonText: 'Add Product')
             ],
@@ -97,7 +94,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget CategoryDropDown() {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
-      // width: MediaQuery.of(context).size.width * 0.89,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           border: Border.all(color: Colors.black)),
@@ -172,11 +168,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
         Reference ref =
             storage.ref().child('images/${DateTime.now()}_$fileName');
         task = ref.putFile(file);
-        // setState(() {});
         TaskSnapshot taskSnapshot = await task!.whenComplete(() {});
         taskSnapshot.ref.getDownloadURL().then(
           (value) {
-            ImgUrls1.add(value);
+            ImageList.add(value);
             count++;
             if (count == imageFileList!.length) {
               setState(() {
@@ -184,7 +179,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 imagesUploading = false;
               });
             }
-            print('imgurls1 length ' + ImgUrls1.length.toString());
+            print('ImageList length ' + ImageList.length.toString());
             print("Done: $value");
           },
         );

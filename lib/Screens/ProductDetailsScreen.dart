@@ -324,7 +324,7 @@ class ProductReviews extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.15,
               child: ReviewsList.isEmpty
                   ? const Center(
                       child: Text(

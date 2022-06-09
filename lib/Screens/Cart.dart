@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/Screens/PaymentScreen.dart';
 import 'package:ecommerceapp/Services/Providers/CartProvider.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,17 @@ class _CartState extends State<Cart> {
             width: MediaQuery.of(context).size.width * 0.99,
             child: Row(
               children: [
-                MultiPurposeButton(onPressed: () {}, buttonText: 'Checkout'),
+                MultiPurposeButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PaymentScreen(
+                          itemsInCart:
+                              context.watch<CartProvider>().cartList.length,
+                          cartTotal: context.watch<CartProvider>().cartTotal,
+                        ),
+                      ));
+                    },
+                    buttonText: 'Checkout'),
                 Expanded(
                     child: ListTile(
                   title: const Text(
