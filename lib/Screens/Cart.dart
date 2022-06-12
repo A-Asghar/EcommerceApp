@@ -1,10 +1,12 @@
 import 'package:ecommerceapp/Screens/PaymentScreen.dart';
 import 'package:ecommerceapp/Services/Providers/CartProvider.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
+import 'package:ecommerceapp/Widgets/NavigateToHome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/CartItems.dart';
+import 'NavigationBar.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -17,56 +19,59 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+    child: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
         child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.grey),
-          onPressed: () {},
-        ),
-        title: Text(
-          'Your Cart',
-          style: TextStyle(fontSize: 20, color: Colors.grey),
-        ),
-      ),
-      body: Center(
-          child: Column(
-        children: [
-          Expanded(child: CartItems()),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.99,
-            child: Row(
-              children: [
-                MultiPurposeButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PaymentScreen(
-                          itemsInCart:
-                              context.watch<CartProvider>().cartList.length,
-                          cartTotal: context.watch<CartProvider>().cartTotal,
-                        ),
-                      ));
-                    },
-                    buttonText: 'Checkout'),
-                Expanded(
-                    child: ListTile(
-                  title: const Text(
-                    'Total',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    '\$${context.watch<CartProvider>().cartTotal.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ))
-              ],
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            centerTitle: true,
+            leading: const NavigateToHome(),
+            title: Text(
+              'Your Cart',
+              style: TextStyle(fontSize: 20, color: Colors.grey),
             ),
-          )
-        ],
-      )),
-    ));
+          ),
+          body: Center(
+              child: Column(
+                children: [
+                  Expanded(child: CartItems()),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.99,
+                    child: Row(
+                      children: [
+                        MultiPurposeButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PaymentScreen(
+                                  itemsInCart:
+                                  context.watch<CartProvider>().cartList.length,
+                                  cartTotal: context.watch<CartProvider>().cartTotal,
+                                ),
+                              ));
+                            },
+                            buttonText: 'Checkout'),
+                        Expanded(
+                            child: ListTile(
+                              title: const Text(
+                                'Total',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '\$${context.watch<CartProvider>().cartTotal.toStringAsFixed(2)}',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ))
+                      ],
+                    ),
+                  )
+                ],
+              )),
+        )
+    ),
+    );
   }
 }

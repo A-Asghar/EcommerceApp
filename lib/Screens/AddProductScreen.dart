@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../Services/ProductManagement/AddProduct.dart';
+import '../Widgets/NavigateToHome.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -41,6 +42,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             style: TextStyle(fontSize: 20, color: Colors.grey)),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: const NavigateToHome(),
       ),
       body: Center(
         child: SingleChildScrollView(

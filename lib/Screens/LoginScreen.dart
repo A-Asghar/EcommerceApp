@@ -1,7 +1,9 @@
+import 'package:ecommerceapp/Screens/MainScreen.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:ecommerceapp/Widgets/UserInput.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Widgets/SigninErrorDialog.dart';
 import 'Cart.dart';
@@ -18,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MainScreen(),
+                    ));
+            },
             icon: const Icon(
               Icons.arrow_back_ios_sharp,
               color: Colors.grey,
@@ -40,66 +47,81 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02),
-                child: const Text(
-                  'Sign in',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        body: isLoading
+            ? Center(
+                child: LoadingAnimationWidget.threeArchedCircle(
+                    color: Colors.tealAccent, size: 80))
+            : Center(
+                child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.02),
+                      child: const Text(
+                        'Sign in',
+                        style: TextStyle(
+                            fontSize: 40, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.02),
+                      child: const Text(
+                        'Sign in using your email ID and password',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      child: const Image(
+                          image: NetworkImage(
+                              'https://i.ibb.co/rckS5r5/339239-PB17-P3-369-min-removebg-preview.png')),
+                    ),
+                    userInput(
+                        'Email', TextInputType.emailAddress, _email, false, 50),
+                    userInput('Password', TextInputType.visiblePassword,
+                        _password, true, 20),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SignupScreen(),
+                        ));
+                      },
+                      child: const Text('Don\'t have an account yet? Signup!'),
+                    ),
+                    MultiPurposeButton(
+                        onPressed: () {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: _email.text, password: _password.text)
+                              .then((signedInUser) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => NavBar(),
+                            ));
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }).catchError((e) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            signinErrorDialog(e.code, context);
+                          });
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //         builder: (context) => NavBar(),
+                          //       ));
+                        },
+                        buttonText: 'Login')
+                  ],
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02),
-                child: const Text(
-                  'Sign in using your email ID and password',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: const Image(
-                    image: NetworkImage(
-                        'https://i.ibb.co/rckS5r5/339239-PB17-P3-369-min-removebg-preview.png')),
-              ),
-              userInput('Email', TextInputType.emailAddress, _email, false, 50),
-              userInput('Password', TextInputType.visiblePassword, _password,
-                  true, 20),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SignupScreen(),
-                  ));
-                },
-                child: const Text('Don\'t have an account yet? Signup!'),
-              ),
-              MultiPurposeButton(
-                  onPressed: () {
-                    FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _email.text, password: _password.text)
-                        .then((signedInUser) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => NavBar(),
-                      ));
-                    }).catchError((e) {
-                      signinErrorDialog(e.code, context);
-                    });
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //         builder: (context) => NavBar(),
-                    //       ));
-                  },
-                  buttonText: 'Login')
-            ],
-          ),
-        )),
+              )),
       ),
     );
   }

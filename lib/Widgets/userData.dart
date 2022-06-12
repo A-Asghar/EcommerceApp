@@ -18,6 +18,8 @@ class userData extends StatelessWidget {
                     ? "Set Up"
                     : snapshot.data.toString(),
                 style: TextStyle(color: Colors.black, fontSize: 20),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           );

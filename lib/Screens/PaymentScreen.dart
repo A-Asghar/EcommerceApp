@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:awesome_card/awesome_card.dart';
 
+import '../Widgets/NavigateToHome.dart';
+
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen(
       {Key? key, required this.cartTotal, required this.itemsInCart})
@@ -35,6 +37,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           'Checkout',
           style: TextStyle(fontSize: 20, color: Colors.grey),
         ),
+        leading: const NavigateToHome(),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,

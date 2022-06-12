@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/Screens/ProductDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
+import '../Services/ProductManagement/ProductModel.dart';
+
 class PopularProducts extends StatelessWidget {
   const PopularProducts({Key? key}) : super(key: key);
 
@@ -10,7 +12,7 @@ class PopularProducts extends StatelessWidget {
     CollectionReference Products =
         FirebaseFirestore.instance.collection('EcommerceAppProducts');
     return StreamBuilder(
-        stream: Products.orderBy('productSales',descending: true).snapshots(),
+        stream: Products.orderBy('productSales', descending: true).snapshots(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
@@ -38,14 +40,26 @@ class PopularProducts extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ProductDetailsScreen(
-                                  imgList: snapshot.data.docs[index]['productImageList'].toList(),
-                                  productName: snapshot.data.docs[index]['productName'],
-                                  productPrice: snapshot.data.docs[index]['productPrice'],
-                                  productDescription: snapshot.data.docs[index]['productDescription'],
-                                  productRating: snapshot.data.docs[index]['productRating'],
-                                  productReviews: snapshot.data.docs[index]['productReviews'].toList(),
-                                  productImageUrl: snapshot.data.docs[index]['productImageUrl'],
-                                   ),
+                                product: Product(
+                                  productID: snapshot.data.docs[index]['productID'],
+                                  imgList: snapshot
+                                      .data.docs[index]['productImageList']
+                                      .toList(),
+                                  productName: snapshot.data.docs[index]
+                                      ['productName'],
+                                  productPrice: snapshot.data.docs[index]
+                                      ['productPrice'],
+                                  productDescription: snapshot.data.docs[index]
+                                      ['productDescription'],
+                                  productRating: snapshot.data.docs[index]
+                                      ['productRating'].toDouble(),
+                                  productReviews: snapshot
+                                      .data.docs[index]['productReviews']
+                                      .toList(),
+                                  productImageUrl: snapshot.data.docs[index]
+                                      ['productImageUrl'],
+                                ),
+                              ),
                             ));
                           },
                           child: Padding(

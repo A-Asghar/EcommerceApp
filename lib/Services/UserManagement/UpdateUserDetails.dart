@@ -13,4 +13,8 @@ class UpdateUserDetails {
   updateUserPhoneNumber(phoneNumber) {
     Users.doc(uid).update({'phoneNumber': phoneNumber});
   }
+
+  updateUserAddress(address) {
+    Users.doc(uid).update({'address': address});
+  }
 }

@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerceapp/Widgets/MyAccountScreenContainer.dart';
 
+import '../Widgets/NavigateToHome.dart';
+import 'NavigationBar.dart';
+
 class MyAccount extends StatefulWidget {
   const MyAccount({Key? key}) : super(key: key);
 
@@ -26,13 +29,7 @@ class _MyAccountState extends State<MyAccount> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.grey,
-          ),
-        ),
+        leading: const NavigateToHome(),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -40,6 +37,8 @@ class _MyAccountState extends State<MyAccount> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FlutterLogo(size: 300),
+
+              // Name
               MyAccountScreenContainer(
                   text: GetUserDetails()
                       .getName(FirebaseAuth.instance.currentUser),
@@ -55,6 +54,8 @@ class _MyAccountState extends State<MyAccount> {
                       });
                     }
                   }),
+
+              // Phone Number
               MyAccountScreenContainer(
                   text: GetUserDetails()
                       .getPhoneNum(FirebaseAuth.instance.currentUser),
@@ -70,11 +71,30 @@ class _MyAccountState extends State<MyAccount> {
                       });
                     }
                   }),
+
+              //Email
               MyAccountScreenContainer(
                   text: GetUserDetails()
                       .getEmail(FirebaseAuth.instance.currentUser),
-                  icon: const Icon(Icons.email_outlined),
+                  icon: const Icon(Icons.mail_outline),
                   onPressed: () {}),
+
+              // Address
+              MyAccountScreenContainer(
+                  text: GetUserDetails()
+                      .getAddress(FirebaseAuth.instance.currentUser),
+                  icon: const Icon(Icons.home_outlined),
+                  onPressed: () async {
+                    var newAddress = await updateDialog(
+                        context, 'Address', TextInputType.text);
+                    if (newAddress != null) {
+                      setState(() {
+                        UpdateUserDetails(
+                                uid: FirebaseAuth.instance.currentUser!.uid)
+                            .updateUserAddress(newAddress);
+                      });
+                    }
+                  }),
             ],
           ),
         ),

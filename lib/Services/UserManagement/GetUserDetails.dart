@@ -4,6 +4,7 @@ class GetUserDetails {
   String userName = '';
   String phoneNumber = '';
   String email = '';
+  String address = '';
   Future<String>? getName(var user) async {
     var document = FirebaseFirestore.instance
         .collection('EcommerceAppUsers')
@@ -15,8 +16,9 @@ class GetUserDetails {
   }
 
   Future<String>? getPhoneNum(var user) async {
-    var document =
-        await FirebaseFirestore.instance.collection('EcommerceAppUsers').doc(user.uid);
+    var document = await FirebaseFirestore.instance
+        .collection('EcommerceAppUsers')
+        .doc(user.uid);
     await document.get().then((document) {
       print(document['phoneNumber']);
       phoneNumber = document['phoneNumber'];
@@ -25,12 +27,24 @@ class GetUserDetails {
   }
 
   Future<String>? getEmail(var user) async {
-    var document =
-     FirebaseFirestore.instance.collection('EcommerceAppUsers').doc(user.uid);
+    var document = FirebaseFirestore.instance
+        .collection('EcommerceAppUsers')
+        .doc(user.uid);
     await document.get().then((document) {
       print(document['email']);
       email = document['email'];
     });
     return email;
+  }
+
+  Future<String>? getAddress(var user) async {
+    var document = FirebaseFirestore.instance
+        .collection('EcommerceAppUsers')
+        .doc(user.uid);
+    await document.get().then((document) {
+      print(document['address']);
+      address = document['address'];
+    });
+    return address;
   }
 }
