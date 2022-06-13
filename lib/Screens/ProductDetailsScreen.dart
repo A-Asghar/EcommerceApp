@@ -1,6 +1,6 @@
-import 'package:ecommerceapp/Screens/Cart.dart';
 import 'package:ecommerceapp/Services/Providers/CartProvider.dart';
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
+import 'package:ecommerceapp/Widgets/NavigateToHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,26 +10,6 @@ import 'package:provider/provider.dart';
 import '../Services/ProductManagement/ProductModel.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  // ProductDetailsScreen(
-  //     {Key? key,
-  //     required this.imgList,
-  //     required this.productName,
-  //     required this.productPrice,
-  //     required this.productDescription,
-  //     required this.productRating,
-  //     required this.productReviews,
-  //     required this.productReviews,
-  //     required this.productImageUrl})
-  //     : super(key: key);
-  //
-  // final List imgList;
-  // final List productReviews;
-  // final String productName;
-  // final double productPrice;
-  // final String productDescription;
-  // final int productRating;
-  // final String productImageUrl;
-
   ProductDetailsScreen({required this.product});
   final Product product;
 
@@ -41,8 +21,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final ReviewsList = widget.product.productReviews;
-    String desc =
-        'urBeats Earphones \n\nMade to take a beating.\n\nReplacing busted ear buds gets old fast. urBeats earphones were made to be an upgrade from the headphones that come with your music player: more durability, better sound, and a chance to do real justice to your music.\n\nurBeats headphones are made to be an upgrade from the white ear buds that come with your Apple device. More durability, better sound, and a chance to do real justice to your music. If you have an Apple device and demand excellent quality from an in-ear headphone, urBeats are designed for you.\n\nSolid metal housing.\n\nDr.Dre Beats Earphones\n\nPrecision‐machined single‐billet metal housing prevents vibrations and unwelcome sound from tainting your listening experience.';
 
     List<Widget> imageSliders = widget.product.imgList
         .map((item) => Container(
@@ -66,13 +44,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.grey,
-        ),
-      ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: const NavigateToHome()),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -158,11 +132,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   //     widget.product.productPrice,
                                   //     widget.product.productImageUrl);
                                   CartProducts product = CartProducts(
-                                    name: widget.product.productName,
-                                    imageUrl: widget.product.productImageUrl,
-                                    price: widget.product.productPrice,
-                                    productID: widget.product.productID
-                                  );
+                                      name: widget.product.productName,
+                                      imageUrl: widget.product.productImageUrl,
+                                      price: widget.product.productPrice,
+                                      productID: widget.product.productID);
                                   context
                                       .read<CartProvider>()
                                       .addToCart(product);

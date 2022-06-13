@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/Screens/AllProductsScreen.dart';
 import 'package:ecommerceapp/Widgets/CartIcon.dart';
 import 'package:ecommerceapp/Widgets/CategoriesList.dart';
 import 'package:ecommerceapp/Widgets/CouponTab.dart';
@@ -61,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => AllProductsScreen(),
+                                        ));
                                 },
                                 child: const Text(
                                   'See All  ',

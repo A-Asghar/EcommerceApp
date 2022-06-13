@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'LoginScreen.dart';
 
@@ -28,20 +29,9 @@ class MainScreen extends StatelessWidget {
                 child: Image.network(
                     'https://i.ibb.co/QDj8cCT/image-removebg-preview-6.png'),
               ),
-              // Container(
-              //   child: Padding(
-              //     child: Text('Alphaned ',
-              //         style: GoogleFonts.antic(
-              //             fontSize: 50,
-              //             color: Colors.grey,
-              //             fontWeight: FontWeight.bold)),
-              //     padding: EdgeInsets.only(left: 30),
-              //   ),
-              //   width: MediaQuery.of(context).size.width,
-              // ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: Image(
+                child: const Image(
                     image: NetworkImage(
                         'https://i.ibb.co/RcpJ7bP/20944108-min.jpg')),
               ),

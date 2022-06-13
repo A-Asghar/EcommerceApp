@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Screens/CategoryProductList.dart';
+
 class CategoriesList extends StatefulWidget {
   const CategoriesList({Key? key}) : super(key: key);
 
@@ -18,9 +20,10 @@ class _CategoriesListState extends State<CategoriesList> {
         imageUrl:
             'https://i.ibb.co/MNBgbrY/christopher-gower-m-HRf-Lhg-ABo-unsplash.jpg'),
     Categories(
-        categoryName: 'Sports',
-        imageUrl:
-            'https://i.ibb.co/pK3mZ3s/victor-freitas-q-Z-U9z4-TQ6-A-unsplash.jpg'),
+      categoryName: 'Sports',
+      imageUrl:
+          'https://i.ibb.co/pK3mZ3s/victor-freitas-q-Z-U9z4-TQ6-A-unsplash.jpg',
+    ),
   ];
 
   @override
@@ -43,7 +46,13 @@ class _CategoriesListState extends State<CategoriesList> {
                         child: SizedBox.fromSize(
                           size: const Size.fromRadius(150), // Image radius
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CategoryProducts(
+                                    categoryName:
+                                        categoryList[index].categoryName),
+                              ));
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
