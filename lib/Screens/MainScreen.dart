@@ -32,8 +32,7 @@ class MainScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: const Image(
-                    image: NetworkImage(
-                        'https://i.ibb.co/RcpJ7bP/20944108-min.jpg')),
+                    image: AssetImage('assets/mainScreenImage.jpg')),
               ),
               Align(
                 child: MultiPurposeButton(

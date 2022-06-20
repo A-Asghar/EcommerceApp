@@ -1,13 +1,15 @@
 import 'package:ecommerceapp/Widgets/MultiPurposeButton.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:awesome_card/awesome_card.dart';
+import 'package:provider/provider.dart';
 
+import '../Services/Providers/CartProvider.dart';
 import '../Widgets/NavigateToHome.dart';
+import 'NavigationBar.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen(
@@ -26,6 +28,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String expiryDate = '';
   String cvv = '568';
   bool showBack = true;
+  bool isLoading = false;
 
   Map<String, dynamic>? paymentIntentData;
   @override
@@ -126,23 +129,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
               const SizedBox(
                 height: 20,
               ),
-              MultiPurposeButton(
-                  onPressed: () async {
-                    // final paymentMethod = await Stripe.instance
-                    //     .createPaymentMethod(PaymentMethodParams.card(
-                    //         paymentMethodData:
-                    //             PaymentMethodData.fromJson(json)));
-                    makePayment();
+              isLoading
+                  ? CircularProgressIndicator(
+                      color: Colors.tealAccent,
+                    )
+                  : MultiPurposeButton(
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
 
-                    print(((widget.cartTotal -
-                                (widget.cartTotal *
-                                    widget.discountPercentage /
-                                    100)) *
-                            100)
-                        .toInt()
-                        .toString());
-                  },
-                  buttonText: 'Pay Now')
+                        makePayment();
+                      },
+                      buttonText: 'Pay Now')
             ],
           ),
         ),
@@ -168,7 +167,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   applePay: true,
                   googlePay: true,
                   testEnv: true,
-                  style: ThemeMode.dark,
+                  style: ThemeMode.system,
                   merchantCountryCode: 'US',
                   merchantDisplayName: 'ANNIE'))
           .then((value) {});
@@ -195,14 +194,31 @@ class _PaymentScreenState extends State<PaymentScreen> {
         print('payment intent' + paymentIntentData!['amount'].toString());
         print('payment intent' + paymentIntentData.toString());
         //orderPlaceApi(paymentIntentData!['id'].toString());
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("paid successfully")));
 
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Paid Successfully !",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.tealAccent,
+        ));
         paymentIntentData = null;
+        context.read<CartProvider>().destroyCart();
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => NavBar(),
+        ));
       }).onError((error, stackTrace) {
+        setState(() {
+          isLoading = false;
+        });
         print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
       });
     } on StripeException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       print('Exception/DISPLAYPAYMENTSHEET==> $e');
       showDialog(
           context: context,

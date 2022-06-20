@@ -12,11 +12,13 @@ class MultiPurposeButton extends StatelessWidget {
     return Container(
       height: 50.0,
       margin: EdgeInsets.all(10),
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: onPressed,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-        padding: EdgeInsets.all(0.0),
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+          padding: EdgeInsets.all(0.0),
+        ),
         child: Ink(
           decoration: BoxDecoration(
               gradient: LinearGradient(

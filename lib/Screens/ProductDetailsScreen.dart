@@ -127,10 +127,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             MultiPurposeButton(
                                 onPressed: () {
-                                  // context.read<CartProvider>().addToCart(
-                                  //     widget.product.productName,
-                                  //     widget.product.productPrice,
-                                  //     widget.product.productImageUrl);
                                   CartProducts product = CartProducts(
                                       name: widget.product.productName,
                                       imageUrl: widget.product.productImageUrl,
@@ -139,6 +135,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   context
                                       .read<CartProvider>()
                                       .addToCart(product);
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                      "Added To Cart !",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    backgroundColor: Colors.tealAccent,
+                                  ));
                                 },
                                 buttonText: 'Add To Cart'),
                             Text(

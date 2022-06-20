@@ -1,7 +1,5 @@
-import 'package:ecommerceapp/Services/UserManagement/GetUserDetails.dart';
 import 'package:ecommerceapp/Widgets/userData.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class MyAccountScreenContainer extends StatefulWidget {
   const MyAccountScreenContainer(
@@ -15,7 +13,8 @@ class MyAccountScreenContainer extends StatefulWidget {
   final icon;
 
   @override
-  State<MyAccountScreenContainer> createState() => _MyAccountScreenContainerState();
+  State<MyAccountScreenContainer> createState() =>
+      _MyAccountScreenContainerState();
 }
 
 class _MyAccountScreenContainerState extends State<MyAccountScreenContainer> {
@@ -25,7 +24,6 @@ class _MyAccountScreenContainerState extends State<MyAccountScreenContainer> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          // primary: kPrimaryColor,
           padding: EdgeInsets.all(20),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

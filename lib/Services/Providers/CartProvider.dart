@@ -7,11 +7,15 @@ class CartProvider extends ChangeNotifier {
   List<CartProducts> get cartList => _cartList;
   double get cartTotal => _cartTotal;
 
-  // addToCart(name, price, imageUrl) {
-  //   _cartTotal += price;
-  //   _cartList.add(CartProducts(name: name, price: price, imageUrl: imageUrl));
-  //   notifyListeners();
-  // }
+  set cartTotal(total) {
+    _cartTotal = total;
+    notifyListeners();
+  }
+
+  destroyCart() {
+    cartList.clear();
+    _cartTotal = 0;
+  }
 
   addToCart(CartProducts product) {
     _cartTotal += product.price;

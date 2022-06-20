@@ -3,6 +3,7 @@ import 'package:ecommerceapp/Screens/ProductDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../Services/ProductManagement/ProductModel.dart';
+import 'ProductsList.dart';
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({Key? key}) : super(key: key);
@@ -41,7 +42,8 @@ class PopularProducts extends StatelessWidget {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ProductDetailsScreen(
                                 product: Product(
-                                  productID: snapshot.data.docs[index]['productID'],
+                                  productID: snapshot.data.docs[index]
+                                      ['productID'],
                                   imgList: snapshot
                                       .data.docs[index]['productImageList']
                                       .toList(),
@@ -51,8 +53,9 @@ class PopularProducts extends StatelessWidget {
                                       ['productPrice'],
                                   productDescription: snapshot.data.docs[index]
                                       ['productDescription'],
-                                  productRating: snapshot.data.docs[index]
-                                      ['productRating'].toDouble(),
+                                  productRating: snapshot
+                                      .data.docs[index]['productRating']
+                                      .toDouble(),
                                   productReviews: snapshot
                                       .data.docs[index]['productReviews']
                                       .toList(),
@@ -83,7 +86,7 @@ class PopularProducts extends StatelessWidget {
               ),
             );
           }
-          return Center(
+          return const Center(
             child: Text('No Products !'),
           );
         });

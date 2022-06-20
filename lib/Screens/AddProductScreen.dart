@@ -226,14 +226,8 @@ class AddImages extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10),
       height: 50.0,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: const BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+      child: ElevatedButton(
         onPressed: onPressed,
-        padding: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(0, 160, 227, 1),
-        textColor: Colors.white,
         child: Text(text, style: const TextStyle(fontSize: 15)),
       ),
     );
